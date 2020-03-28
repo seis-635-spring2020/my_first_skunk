@@ -21,12 +21,12 @@ public class MockUI extends SkunkUI implements UI {
 
 	@Override
 	public void print(String msg) {
-		this.ActualMessage = msg;
+		this.ActualMessage += msg;
 	}
 
 	@Override
 	public void println(String msg) {
-		this.ActualMessage = msg + "\n";
+		this.ActualMessage += msg + "\n";
 	}
 
 }

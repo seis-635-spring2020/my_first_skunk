@@ -39,8 +39,12 @@ public class SkunkDomain
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
 		{
-			ui.print("Enter name of player " + (playerNumber + 1) + ": ");
-			playerNames[playerNumber] = StdIn.readLine();
+			// First Refactoring.
+			// The logic in this loop repeated logic already present in SkunkUI.java.
+			// In addition to being repetitive, it also impairs my ability to test the
+			// domain class because it introduces user interface logic into the domain
+			// controller logic.
+			playerNames[playerNumber] = ui.promptReadAndReturn("Enter name of player " + (playerNumber + 1));
 			this.players.add(new Player(50));
 		}
 		activePlayerIndex = 0;

@@ -6,7 +6,7 @@ class TestSkunkDomain {
 
 	String[] prompts = { "2", "Player 1", "Player 2",
 			"y", "y", "y", "n",
-			"y", "n",
+			"y", "y",
 			"y", "y", "y", "y", "n",
 			"y", "y",
 			"y", "y", 
@@ -14,14 +14,14 @@ class TestSkunkDomain {
 			"y", "y", "n",
 			"y"	};
 	
-	int[] die1_rolls = new int[] { 3, 6, 5, 5, 1, 3, 4, 3, 2, 5, 5, 6, 1, 1, 6, 4, 1 };
-	int[] die2_rolls = new int[] { 3, 5, 6, 5, 6, 4, 5, 4, 5, 4, 1, 6, 2, 4, 2, 6, 2 };
+	int[] die1_rolls = new int[] { 3, 6, 5, 5, 1, 3, 4, 3, 2, 5, 5, 6, 1, 1, 6, 4, 2 };
+	int[] die2_rolls = new int[] { 3, 5, 6, 5, 1, 4, 5, 4, 5, 4, 1, 6, 2, 4, 2, 6, 1 };
 	
 	String case1 = "Welcome to Skunk 0.47\n" + 
 			"\n" + 
 			"How many players? => 2\n" + 
-			"Enter name of player 1: Player 1\n" + 
-			"Enter name of player 2: Player 2\n" + 
+			"Enter name of player 1 => Player 1\n" + 
+			"Enter name of player 2 => Player 2\n" + 
 			"Starting game...\n" + 
 			"\n" + 
 			"Next player is Player 1.\n" + 
@@ -49,18 +49,18 @@ class TestSkunkDomain {
 			"Roll? y or n => y\n" + 
 			"Roll of Dice with last roll: 10 => 5 + 5, gives new turn score of 10\n" + 
 			"Roll again? y or n => y\n" + 
-			"One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty\n" + 
+			"Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty\n" + 
 			"End of turn for Player 2\n" + 
 			"Score for this turn is 0, added to...\n" + 
 			"Previous round score of 0\n" + 
 			"Giving new round score of 0\n" + 
 			"\n" + 
 			"Scoreboard: \n" + 
-			"Kitty has 1\n" + 
+			"Kitty has 4\n" + 
 			"player name -- turn score -- round score -- chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 28 -- 28 -- 50\n" + 
-			"Player 2 -- 0 -- 0 -- 49\n" + 
+			"Player 2 -- 0 -- 0 -- 46\n" + 
 			"-----------------------\n" + 
 			"Turn passes to right...\n" + 
 			"Next player is Player 1.\n" + 
@@ -79,11 +79,11 @@ class TestSkunkDomain {
 			"Giving new round score of 86\n" + 
 			"\n" + 
 			"Scoreboard: \n" + 
-			"Kitty has 1\n" + 
+			"Kitty has 4\n" + 
 			"player name -- turn score -- round score -- chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 58 -- 86 -- 50\n" + 
-			"Player 2 -- 0 -- 0 -- 49\n" + 
+			"Player 2 -- 0 -- 0 -- 46\n" + 
 			"-----------------------\n" + 
 			"Turn passes to right...\n" + 
 			"Next player is Player 2.\n" + 
@@ -97,11 +97,11 @@ class TestSkunkDomain {
 			"Giving new round score of 0\n" + 
 			"\n" + 
 			"Scoreboard: \n" + 
-			"Kitty has 2\n" + 
+			"Kitty has 5\n" + 
 			"player name -- turn score -- round score -- chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 58 -- 86 -- 50\n" + 
-			"Player 2 -- 0 -- 0 -- 48\n" + 
+			"Player 2 -- 0 -- 0 -- 45\n" + 
 			"-----------------------\n" + 
 			"Turn passes to right...\n" + 
 			"Next player is Player 1.\n" + 
@@ -115,11 +115,11 @@ class TestSkunkDomain {
 			"Giving new round score of 86\n" + 
 			"\n" + 
 			"Scoreboard: \n" + 
-			"Kitty has 4\n" + 
+			"Kitty has 7\n" + 
 			"player name -- turn score -- round score -- chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 0 -- 86 -- 48\n" + 
-			"Player 2 -- 0 -- 0 -- 48\n" + 
+			"Player 2 -- 0 -- 0 -- 45\n" + 
 			"-----------------------\n" + 
 			"Turn passes to right...\n" + 
 			"Next player is Player 2.\n" + 
@@ -131,11 +131,11 @@ class TestSkunkDomain {
 			"Giving new round score of 0\n" + 
 			"\n" + 
 			"Scoreboard: \n" + 
-			"Kitty has 5\n" + 
+			"Kitty has 8\n" + 
 			"player name -- turn score -- round score -- chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 0 -- 86 -- 48\n" + 
-			"Player 2 -- 0 -- 0 -- 47\n" + 
+			"Player 2 -- 0 -- 0 -- 44\n" + 
 			"-----------------------\n" + 
 			"Turn passes to right...\n" + 
 			"Next player is Player 1.\n" + 
@@ -150,11 +150,11 @@ class TestSkunkDomain {
 			"Giving new round score of 104\n" + 
 			"\n" + 
 			"Scoreboard: \n" + 
-			"Kitty has 5\n" + 
+			"Kitty has 8\n" + 
 			"player name -- turn score -- round score -- chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 18 -- 104 -- 48\n" + 
-			"Player 2 -- 0 -- 0 -- 47\n" + 
+			"Player 2 -- 0 -- 0 -- 44\n" + 
 			"-----------------------\n" + 
 			"Turn passes to right...\n" + 
 			"Last turn for all...\n" + 
@@ -168,14 +168,14 @@ class TestSkunkDomain {
 			"Final round score for Player 2 is 0.\n" + 
 			"Round winner is Player 1 with score of 104\n" + 
 			"\n" + 
-			"Round winner earns 7, finishing with 55\n" + 
+			"Round winner earns 10, finishing with 58\n" + 
 			"\n" + 
 			"Final scoreboard for this round:\n" + 
 			"player name -- round score -- total chips\n" + 
 			"-----------------------\n" + 
-			"Player 1 -- 104 -- 55\n" + 
-			"Player 2 -- 0 -- 45\n" + 
-			"-----------------------";
+			"Player 1 -- 104 -- 58\n" + 
+			"Player 2 -- 0 -- 42\n" + 
+			"-----------------------\n";
 	
 	@Test
 	void testRun() {
@@ -185,6 +185,7 @@ class TestSkunkDomain {
 		MockUI ui = new MockUI(prompts);
 		SkunkDomain domain = new SkunkDomain(ui);
 		domain.skunkDice = dice;
+		ui.setDomain(domain);
 		domain.run();
 		assert(ui.ActualMessage.contentEquals(case1));
 	}
