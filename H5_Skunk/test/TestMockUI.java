@@ -6,7 +6,7 @@ class TestMockUI {
 
 	@Test
 	void testPromptReadAndReturn() {
-		MockUI blah = new MockUI(null, new String[] {"y", "n", "y", "n"});
+		MockUI blah = new MockUI(new String[] {"y", "n", "y", "n"});
 		String expected = "Hello => y\n" +
 				"Hello => n\n" +
 				"Hello => y\n" +
@@ -28,14 +28,14 @@ class TestMockUI {
 
 	@Test
 	void testPrint() {
-		MockUI blah = new MockUI(null, new String[] {"y", "n", "y", "n"});
+		MockUI blah = new MockUI(new String[] {"y", "n", "y", "n"});
 		blah.print("Hello");
 		assert(blah.ActualMessage.contentEquals("Hello"));
 	}
 
 	@Test
 	void testPrintln() {
-		MockUI blah = new MockUI(null, new String[] {"y", "n", "y", "n"});
+		MockUI blah = new MockUI(new String[] {"y", "n", "y", "n"});
 		blah.println("Hello");
 		assert(blah.ActualMessage.contentEquals("Hello\n"));
 	}

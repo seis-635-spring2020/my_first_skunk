@@ -1,22 +1,14 @@
 
-public class MockUI implements UI {
+public class MockUI extends SkunkUI implements UI {
 
 	public String ActualMessage = "";
 	private String[] answers;
 	public int index = -1;
 	
-	public MockUI(SkunkDomain domain, String[] answers)
+	public MockUI(String[] answers)
 	{
-		this.setDomain(domain);
+		super();
 		this.answers = answers;
-	}
-	
-	public SkunkDomain skunkDomain;
-
-	public void setDomain(SkunkDomain skunkDomain)
-	{
-		this.skunkDomain = skunkDomain;
-
 	}
 	
 	@Override
