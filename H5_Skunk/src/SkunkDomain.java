@@ -29,6 +29,14 @@ public class SkunkDomain
 		this.wantsToQuit = false;
 		this.oneMoreRoll = false;
 	}
+	
+	void roll() {
+		this.skunkDice.roll();
+	}
+	
+	String getRollMessage(int currentTurnScore) {
+		return "bad_string";
+	}
 
 	public boolean run()
 	{
