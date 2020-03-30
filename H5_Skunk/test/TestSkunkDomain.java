@@ -43,4 +43,28 @@ class TestSkunkDomain {
 		assertEquals(expected_scoreRoll, domain.getRollMessage(21));
 	}
 
+	@Test
+	void test_player_is_added_when_addPlayer_is_called() {
+		String expected_PlayerName = "Ready Player 1";
+		
+		MockUI ui = new MockUI(new String[] {"y"});
+		SkunkDomain domain = new SkunkDomain(ui);
+		ui.setDomain(domain);
+		
+		assertEquals(0, domain.numberOfPlayers);
+		assertEquals(0, domain.playerNames.length);
+		assertEquals(0, domain.players.size());
+		
+		domain.addPlayer(expected_PlayerName);
+		
+		assertEquals(1, domain.numberOfPlayers);
+		assertEquals(1, domain.playerNames.length);
+		assertEquals(1, domain.players.size());
+		assertEquals(expected_PlayerName, domain.playerNames[0]);
+		assertEquals(50, domain.players.get(0).getNumberChips());
+		assertEquals(0, domain.players.get(0).getRoundScore());
+		assertEquals(0, domain.players.get(0).getTurnScore());
+		assertEquals(expected_PlayerName, domain.players.get(0).getName());
+
+	}
 }

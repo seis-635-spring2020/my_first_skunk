@@ -54,6 +54,12 @@ public class SkunkDomain
 		}
 		return "Roll of " + skunkDice.toString() + ", gives new turn score of " + currentTurnScore;
 	}
+	
+	// Third Refactor.
+	// Expose Add Player logic at a package level to facilitate testing and refactoring of kitty logic.
+	void addPlayer(String name) {
+		
+	}
 
 	public boolean run()
 	{
