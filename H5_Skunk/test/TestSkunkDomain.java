@@ -59,4 +59,39 @@ class TestSkunkDomain {
 		assertEquals(0, domain.players.get(0).getTurnScore());
 
 	}
+	
+	@Test
+	void test_correct_penalty_is_calculated() {
+		int[] die1_rolls = new int[] { 1, 1, 1, 2, 1, 6, 1, 5, 1, 4, 1, 3, 3 };
+		int[] die2_rolls = new int[] { 1, 1, 2, 1, 6, 1, 5, 1, 4, 1, 3, 1, 6 };
+
+		Die die1 = new Die(die1_rolls);
+		Die die2 = new Die(die2_rolls);
+		Dice dice = new Dice(die1, die2);
+		
+		MockUI ui = new MockUI(new String[] {"y"});
+		SkunkDomain domain = new SkunkDomain(ui);
+		domain.skunkDice = dice;
+		ui.setDomain(domain);
+		domain.addPlayer("Player 1", 0);
+		domain.activePlayerIndex = 0;
+		
+		dice.roll();
+		domain.roll();
+		assertEquals(4, domain.getChipPenalty());
+		
+		for (int i = 0; i < 2; i++) {
+			domain.roll();
+			assertEquals(2, domain.getChipPenalty());
+		}
+		
+		for (int i = 0; i < 8; i++) {
+			domain.roll();
+			assertEquals(1, domain.getChipPenalty());
+		}
+		
+		
+		domain.roll();
+		assertEquals(0, domain.getChipPenalty());
+	}
 }

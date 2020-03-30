@@ -61,6 +61,12 @@ public class SkunkDomain
 		this.players.add(new Player(50));
 		this.playerNames[playerNumber] = name;	
 	}
+	
+	//Third Refactor.
+	// Pull Chip penalty logic into a separate function.
+	int getChipPenalty() {
+		return -1;
+	}
 
 	public boolean run()
 	{
@@ -76,8 +82,9 @@ public class SkunkDomain
 			// In addition to being repetitive, it also impairs my ability to test the
 			// domain class because it introduces user interface logic into the domain
 			// controller logic.
-			playerNames[playerNumber] = ui.promptReadAndReturn("Enter name of player " + (playerNumber + 1));
-			this.players.add(new Player(50));
+			String name = ui.promptReadAndReturn("Enter name of player " + (playerNumber + 1));
+			
+			this.addPlayer(name, playerNumber);
 		}
 		activePlayerIndex = 0;
 		activePlayer = players.get(activePlayerIndex);
