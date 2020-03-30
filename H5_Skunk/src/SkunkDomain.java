@@ -29,6 +29,64 @@ public class SkunkDomain
 		this.wantsToQuit = false;
 		this.oneMoreRoll = false;
 	}
+	
+	// Second Refactor.
+	// This function was added to facilitate the unit testing of getRollMessage.
+	// It enables execution of the this.skunkDice.roll() function from unit tests.
+	void roll() {
+		this.skunkDice.roll();
+	}
+	
+	// Second Refactor.
+	// This function extracts the logic for generating the turn Ui message from the this.run() method.
+	String getRollMessage(int currentTurnScore) {
+		if (skunkDice.getLastRoll() == 2)
+		{
+			return "Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty";
+		}
+		else if (skunkDice.getLastRoll() == 3)
+		{
+			return "Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty";
+		}
+		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			return "One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty";
+		}
+		return "Roll of " + skunkDice.toString() + ", gives new turn score of " + currentTurnScore;
+	}
+	
+	// Third Refactor.
+	// Expose Add Player logic at a package level to facilitate testing and refactoring of kitty logic.
+	void addPlayer(String name, int playerNumber) {
+		this.players.add(new Player(50));
+		this.playerNames[playerNumber] = name;	
+	}
+	
+	//Third Refactor.
+	// Pull Chip penalty logic into a separate function.
+	int getChipPenalty() {
+		if (skunkDice.getLastRoll() == 2)
+		{
+			return 4;
+		}
+		else if (skunkDice.getLastRoll() == 3)
+		{
+			return 2;
+		}
+		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			return 1;
+		}
+		return 0;
+	}
+	
+	int getTurnScore() {
+		if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			return 0;
+		}
+		return this.activePlayer.getTurnScore() + this.skunkDice.getLastRoll();
+	}
 
 	public boolean run()
 	{
@@ -39,9 +97,14 @@ public class SkunkDomain
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
 		{
-			ui.print("Enter name of player " + (playerNumber + 1) + ": ");
-			playerNames[playerNumber] = StdIn.readLine();
-			this.players.add(new Player(50));
+			// First Refactoring.
+			// The logic in this loop repeated logic already present in SkunkUI.java.
+			// In addition to being repetitive, it also impairs my ability to test the
+			// domain class because it introduces user interface logic into the domain
+			// controller logic.
+			String name = ui.promptReadAndReturn("Enter name of player " + (playerNumber + 1));
+			
+			this.addPlayer(name, playerNumber);
 		}
 		activePlayerIndex = 0;
 		activePlayer = players.get(activePlayerIndex);
@@ -59,41 +122,33 @@ public class SkunkDomain
 			{
 				activePlayer.setRollScore(0);
 				skunkDice.roll();
+				kitty += this.getChipPenalty();
+				activePlayer.setNumberChips(activePlayer.getNumberChips() - this.getChipPenalty());
+				activePlayer.setTurnScore(this.getTurnScore());
+				
 				if (skunkDice.getLastRoll() == 2)
 				{
-					ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
-					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
 					wantsToRoll = false;
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
 
 				}
 
 				activePlayer.setRollScore(skunkDice.getLastRoll());
-				activePlayer.setTurnScore(activePlayer.getTurnScore() + skunkDice.getLastRoll());
-				ui.println(
-						"Roll of " + skunkDice.toString() + ", gives new turn score of " + activePlayer.getTurnScore());
-
+				ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
 				wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
 
@@ -144,39 +199,30 @@ public class SkunkDomain
 				skunkDice.roll();
 				ui.println("Roll is " + skunkDice.toString() + "\n");
 
+				kitty += this.getChipPenalty();
+				activePlayer.setNumberChips(activePlayer.getNumberChips() - this.getChipPenalty());
+				activePlayer.setTurnScore(this.getTurnScore());
+				
 				if (skunkDice.getLastRoll() == 2)
 				{
-					ui.println("Two Skunks! You lose the turn, the turn score, plus pay 4 chips to the kitty");
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
-
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					ui.println("One Skunk! You lose the turn, the turn core, plus pay 1 chip to the kitty");
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
-					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
 					wantsToRoll = false;
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				}
 				else
 				{
-					activePlayer.setTurnScore(activePlayer.getRollScore() + skunkDice.getLastRoll());
-					ui.println("Roll of " + skunkDice.toString() + ", giving new turn score of "
-							+ activePlayer.getTurnScore());
-
+					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					ui.println("Scoreboard: ");
 					ui.println("Kitty has " + kitty);
 					ui.println("player name -- turn score -- round score -- total chips");
