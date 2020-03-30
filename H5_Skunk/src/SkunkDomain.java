@@ -124,10 +124,10 @@ public class SkunkDomain
 				skunkDice.roll();
 				kitty += this.getChipPenalty();
 				activePlayer.setNumberChips(activePlayer.getNumberChips() - this.getChipPenalty());
-
+				activePlayer.setTurnScore(this.getTurnScore());
+				
 				if (skunkDice.getLastRoll() == 2)
 				{
-					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
@@ -135,14 +135,12 @@ public class SkunkDomain
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
@@ -150,7 +148,6 @@ public class SkunkDomain
 				}
 
 				activePlayer.setRollScore(skunkDice.getLastRoll());
-				activePlayer.setTurnScore(activePlayer.getTurnScore() + skunkDice.getLastRoll());
 				ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
 				wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
@@ -204,29 +201,27 @@ public class SkunkDomain
 
 				kitty += this.getChipPenalty();
 				activePlayer.setNumberChips(activePlayer.getNumberChips() - this.getChipPenalty());
+				activePlayer.setTurnScore(this.getTurnScore());
+				
 				if (skunkDice.getLastRoll() == 2)
 				{
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					break;
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				}
 				else
 				{
-					activePlayer.setTurnScore(activePlayer.getRollScore() + skunkDice.getLastRoll());
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 					ui.println("Scoreboard: ");
 					ui.println("Kitty has " + kitty);

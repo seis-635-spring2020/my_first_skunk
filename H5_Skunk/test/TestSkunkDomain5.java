@@ -174,13 +174,13 @@ class TestSkunkDomain5 {
 			"Roll again? y or n => y\n" + 
 			"Roll is Dice with last roll: 12 => 6 + 6\n" + 
 			"\n" + 
-			"Roll of Dice with last roll: 12 => 6 + 6, gives new turn score of 12\n" + 
+			"Roll of Dice with last roll: 12 => 6 + 6, gives new turn score of 24\n" + 
 			"Scoreboard: \n" + 
 			"Kitty has 8\n" + 
 			"player name -- turn score -- round score -- total chips\n" + 
 			"-----------------------\n" + 
 			"Player 1 -- 18 -- 104 -- 48\n" + 
-			"Player 2 -- 12 -- 0 -- 44\n" + 
+			"Player 2 -- 24 -- 0 -- 44\n" + 
 			"-----------------------\n" + 
 			"Roll again? y or n => n\n" + 
 			"Last roll of Dice with last roll: 12 => 6 + 6, giving final round score of 0\n" + 
