@@ -79,6 +79,10 @@ public class SkunkDomain
 		}
 		return 0;
 	}
+	
+	int getTurnScore() {
+		return -1;
+	}
 
 	public boolean run()
 	{
@@ -114,10 +118,11 @@ public class SkunkDomain
 			{
 				activePlayer.setRollScore(0);
 				skunkDice.roll();
+				kitty += this.getChipPenalty();
+				activePlayer.setNumberChips(activePlayer.getNumberChips() - this.getChipPenalty());
+
 				if (skunkDice.getLastRoll() == 2)
 				{
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
 					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
 					wantsToRoll = false;
@@ -126,8 +131,6 @@ public class SkunkDomain
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
 					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
@@ -135,8 +138,6 @@ public class SkunkDomain
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
 					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
@@ -197,10 +198,10 @@ public class SkunkDomain
 				skunkDice.roll();
 				ui.println("Roll is " + skunkDice.toString() + "\n");
 
+				kitty += this.getChipPenalty();
+				activePlayer.setNumberChips(activePlayer.getNumberChips() - this.getChipPenalty());
 				if (skunkDice.getLastRoll() == 2)
 				{
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
 					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
@@ -208,16 +209,12 @@ public class SkunkDomain
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
 					activePlayer.setTurnScore(0);
 					wantsToRoll = false;
 					ui.println(this.getRollMessage(activePlayer.getTurnScore()));
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
 					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
 					wantsToRoll = false;
