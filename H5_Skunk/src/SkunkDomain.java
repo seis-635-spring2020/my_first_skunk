@@ -65,7 +65,19 @@ public class SkunkDomain
 	//Third Refactor.
 	// Pull Chip penalty logic into a separate function.
 	int getChipPenalty() {
-		return -1;
+		if (skunkDice.getLastRoll() == 2)
+		{
+			return 4;
+		}
+		else if (skunkDice.getLastRoll() == 3)
+		{
+			return 2;
+		}
+		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			return 1;
+		}
+		return 0;
 	}
 
 	public boolean run()
