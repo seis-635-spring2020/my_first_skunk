@@ -119,7 +119,7 @@ class TestSkunkDomain7 {
 			"Roll? y or n => y\n" + 
 			"Roll is Dice with last roll: 9 => 5 + 4\n" + 
 			"\n" + 
-			"Roll of Dice with last roll: 9 => 5 + 4, giving new turn score of 9\n" + 
+			"Roll of Dice with last roll: 9 => 5 + 4, gives new turn score of 9\n" + 
 			"Scoreboard: \n" + 
 			"Kitty has 4\n" + 
 			"player name -- turn score -- round score -- total chips\n" + 
@@ -130,7 +130,7 @@ class TestSkunkDomain7 {
 			"Roll again? y or n => y\n" + 
 			"Roll is Dice with last roll: 6 => 1 + 5\n" + 
 			"\n" + 
-			"One Skunk! You lose the turn, the turn core, plus pay 1 chip to the kitty\n" + 
+			"One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty\n" + 
 			"Last roll of Dice with last roll: 6 => 1 + 5, giving final round score of 0\n" + 
 			"Final round score for Player 1 is 114.\n" + 
 			"Final round score for Player 2 is 0.\n" + 
@@ -155,7 +155,7 @@ class TestSkunkDomain7 {
 		domain.skunkDice = dice;
 		ui.setDomain(domain);
 		domain.run();
-		assert(ui.ActualMessage.contentEquals(case1));
+		assertEquals(ui.ActualMessage, case1);
 	}
 
 }

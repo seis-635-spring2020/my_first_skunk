@@ -187,7 +187,7 @@ class TestSkunkDomain6 {
 		domain.skunkDice = dice;
 		ui.setDomain(domain);
 		domain.run();
-		assert(ui.ActualMessage.contentEquals(case1));
+		assertEquals(ui.ActualMessage, case1);
 	}
 
 }

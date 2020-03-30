@@ -194,7 +194,7 @@ class TestSkunkDomain2 {
 			"Roll? y or n => y\n" + 
 			"Roll is Dice with last roll: 2 => 1 + 1\n" + 
 			"\n" + 
-			"Two Skunks! You lose the turn, the turn score, plus pay 4 chips to the kitty\n" + 
+			"Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty\n" + 
 			"Last roll of Dice with last roll: 2 => 1 + 1, giving final round score of 0\n" + 
 			"Final round score for Player 1 is 104.\n" + 
 			"Final round score for Player 2 is 0.\n" + 
@@ -219,7 +219,7 @@ class TestSkunkDomain2 {
 		domain.skunkDice = dice;
 		ui.setDomain(domain);
 		domain.run();
-		assert(ui.ActualMessage.contentEquals(case1));
+		assertEquals(ui.ActualMessage,case1);
 	}
 
 }
