@@ -81,7 +81,11 @@ public class SkunkDomain
 	}
 	
 	int getTurnScore() {
-		return -1;
+		if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			return 0;
+		}
+		return this.activePlayer.getTurnScore() + this.skunkDice.getLastRoll();
 	}
 
 	public boolean run()

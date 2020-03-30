@@ -91,6 +91,7 @@ class TestSkunkDomain {
 
 		domain.addPlayer("Player 1",  0);
 		domain.activePlayerIndex = 0;
+		domain.activePlayer = domain.players.get(0);
 		
 		for (int i = 0; i < 11; i++) {
 			domain.roll();
