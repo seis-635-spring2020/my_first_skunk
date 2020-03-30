@@ -35,7 +35,19 @@ public class SkunkDomain
 	}
 	
 	String getRollMessage(int currentTurnScore) {
-		return "bad_string";
+		if (skunkDice.getLastRoll() == 2)
+		{
+			return "Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty";
+		}
+		else if (skunkDice.getLastRoll() == 3)
+		{
+			return "Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty";
+		}
+		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			return "One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty";
+		}
+		return "Roll of " + skunkDice.toString() + ", gives new turn score of " + currentTurnScore;
 	}
 
 	public boolean run()
