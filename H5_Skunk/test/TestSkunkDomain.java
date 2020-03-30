@@ -51,20 +51,12 @@ class TestSkunkDomain {
 		SkunkDomain domain = new SkunkDomain(ui);
 		ui.setDomain(domain);
 		
-		assertEquals(0, domain.numberOfPlayers);
-		assertEquals(0, domain.playerNames.length);
-		assertEquals(0, domain.players.size());
+		domain.addPlayer(expected_PlayerName, 0);
 		
-		domain.addPlayer(expected_PlayerName);
-		
-		assertEquals(1, domain.numberOfPlayers);
-		assertEquals(1, domain.playerNames.length);
-		assertEquals(1, domain.players.size());
 		assertEquals(expected_PlayerName, domain.playerNames[0]);
 		assertEquals(50, domain.players.get(0).getNumberChips());
 		assertEquals(0, domain.players.get(0).getRoundScore());
 		assertEquals(0, domain.players.get(0).getTurnScore());
-		assertEquals(expected_PlayerName, domain.players.get(0).getName());
 
 	}
 }

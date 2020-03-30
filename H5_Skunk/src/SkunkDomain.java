@@ -57,8 +57,9 @@ public class SkunkDomain
 	
 	// Third Refactor.
 	// Expose Add Player logic at a package level to facilitate testing and refactoring of kitty logic.
-	void addPlayer(String name) {
-		
+	void addPlayer(String name, int playerNumber) {
+		this.players.add(new Player(50));
+		this.playerNames[playerNumber] = name;	
 	}
 
 	public boolean run()
