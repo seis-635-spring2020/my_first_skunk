@@ -5,6 +5,7 @@ public class SkunkApp
 	public int numberOfPlayers;
 	public String[] playerNames;
 
+	// start the skunk application to call player
 	public SkunkApp()
 	{
 		skunkUI = new SkunkUI();
