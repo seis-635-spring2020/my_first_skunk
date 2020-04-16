@@ -8,7 +8,9 @@ public class Die
 
 	public Die()
 	{
-		this.roll();
+//		this.roll();
+/* to prevent Child class (if existing) to modify the roll method, only lastroll variable is what we need */ 
+		this.lastRoll = 0;
 	}
 
 	public Die(int[] predictable_rolls)
