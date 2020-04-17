@@ -15,6 +15,11 @@ public class SkunkDomain
 
 	public boolean wantsToQuit;
 	public boolean oneMoreRoll;
+	
+	// Change 3
+	//remove duplication 
+	
+	private String TwoSkunk = "Two Skunks! You lose the turn, the turn score, plus pay 4 chips to the kitty";
 
 	public Dice skunkDice;
 
@@ -61,7 +66,7 @@ public class SkunkDomain
 				skunkDice.roll();
 				if (skunkDice.getLastRoll() == 2)
 				{
-					ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
+					ui.println(TwoSkunk);
 					kitty += 4;
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
 					activePlayer.setTurnScore(0);
@@ -146,7 +151,7 @@ public class SkunkDomain
 
 				if (skunkDice.getLastRoll() == 2)
 				{
-					ui.println("Two Skunks! You lose the turn, the turn score, plus pay 4 chips to the kitty");
+					ui.println(TwoSkunk);
 					kitty += 4;
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
 					activePlayer.setTurnScore(0);
@@ -233,10 +238,12 @@ public class SkunkDomain
 		return true;
 	}
 
-	public static void main(String[] args)
-	{
-		// TODO Auto-generated method stub
+	//change 4
+	// dead code not used
+//	public static void main(String[] args)
+//	{
+//		// TODO Auto-generated method stub
 
-	}
+//	}
 
 }
