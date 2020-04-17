@@ -21,7 +21,9 @@ public class SkunkDomain
 	// Change: remove unused attribute
 	// public boolean wantsToQuit;
 	
-	public boolean oneMoreRoll;
+	// Refactoring @author Rhyan Foo Kune
+	// Change: remove unused attribute
+	// public boolean oneMoreRoll;
 
 	public Dice skunkDice;
 
@@ -41,7 +43,9 @@ public class SkunkDomain
 		// Change: remove unused attribute
 		// this.wantsToQuit = false;
 		
-		this.oneMoreRoll = false;
+		// Refactoring @author Rhyan Foo Kune
+		// Change: remove unused attribute
+		// this.oneMoreRoll = false;
 	}
 
 	public boolean run()
