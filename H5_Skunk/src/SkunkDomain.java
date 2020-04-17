@@ -13,7 +13,10 @@ public class SkunkDomain
 	public Player activePlayer;
 	public int activePlayerIndex;
 
-	public boolean wantsToQuit;
+	// Refactoring @author Rhyan Foo Kune
+	// Change: remove unused attribute
+	// public boolean wantsToQuit;
+	
 	public boolean oneMoreRoll;
 
 	public Dice skunkDice;
@@ -26,7 +29,11 @@ public class SkunkDomain
 		this.playerNames = new String[20];
 		this.players = new ArrayList<Player>();
 		this.skunkDice = new Dice();
-		this.wantsToQuit = false;
+		
+		// Refactoring @author Rhyan Foo Kune
+		// Change: remove unused attribute
+		// this.wantsToQuit = false;
+		
 		this.oneMoreRoll = false;
 	}
 
@@ -39,10 +46,14 @@ public class SkunkDomain
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
 		{
-			ui.print("Enter name of player " + (playerNumber + 1) + ": ");
-			playerNames[playerNumber] = StdIn.readLine();
+			// Refactoring @author Rhyan Foo Kune
+			// Change: use SkunkUI promptReadAndReturn method to prompt question and return input
+			String playerName = ui.promptReadAndReturn("Enter name of player " + (playerNumber + 1) + ": ");
+			playerNames[playerNumber] = playerName;
+			
 			this.players.add(new Player(50));
 		}
+		
 		activePlayerIndex = 0;
 		activePlayer = players.get(activePlayerIndex);
 
@@ -53,12 +64,16 @@ public class SkunkDomain
 		{
 			ui.println("Next player is " + playerNames[activePlayerIndex] + ".");
 			String wantsToRollStr = ui.promptReadAndReturn("Roll? y or n");
-			boolean wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
+			
+			// Refactoring @author Rhyan Foo Kune
+			// Change: make wantsToRoll an attribute in player class
+			activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
 
-			while (wantsToRoll)
+			while (activePlayer.getWantsToRoll())
 			{
 				activePlayer.setRollScore(0);
 				skunkDice.roll();
+				
 				if (skunkDice.getLastRoll() == 2)
 				{
 					ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
@@ -66,7 +81,7 @@ public class SkunkDomain
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
 					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
-					wantsToRoll = false;
+					activePlayer.setWantsToRoll(false);
 					break;
 				}
 				else if (skunkDice.getLastRoll() == 3)
@@ -75,7 +90,7 @@ public class SkunkDomain
 					kitty += 2;
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
 					activePlayer.setTurnScore(0);
-					wantsToRoll = false;
+					activePlayer.setWantsToRoll(false);
 					break;
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
@@ -84,7 +99,7 @@ public class SkunkDomain
 					kitty += 1;
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
 					activePlayer.setTurnScore(0);
-					wantsToRoll = false;
+					activePlayer.setWantsToRoll(false);
 					break;
 
 				}
@@ -95,7 +110,7 @@ public class SkunkDomain
 						"Roll of " + skunkDice.toString() + ", gives new turn score of " + activePlayer.getTurnScore());
 
 				wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
-				wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
+				activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
 
 			}
 
@@ -127,6 +142,7 @@ public class SkunkDomain
 			activePlayer = players.get(activePlayerIndex);
 
 		}
+		
 		// last round: everyone but last activePlayer gets another shot
 
 		ui.println("Last turn for all...");
@@ -137,9 +153,11 @@ public class SkunkDomain
 			activePlayer.setTurnScore(0);
 
 			String wantsToRollStr = ui.promptReadAndReturn("Roll? y or n");
-			boolean wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
+			// Refactoring @author Rhyan Foo Kune
+			// Change: make wantsToRoll an attribute in player class
+			activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
 
-			while (wantsToRoll)
+			while (activePlayer.getWantsToRoll())
 			{
 				skunkDice.roll();
 				ui.println("Roll is " + skunkDice.toString() + "\n");
@@ -150,7 +168,7 @@ public class SkunkDomain
 					kitty += 4;
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
 					activePlayer.setTurnScore(0);
-					wantsToRoll = false;
+					activePlayer.setWantsToRoll(false);
 					break;
 				}
 				else if (skunkDice.getLastRoll() == 3)
@@ -159,7 +177,7 @@ public class SkunkDomain
 					kitty += 2;
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
 					activePlayer.setTurnScore(0);
-					wantsToRoll = false;
+					activePlayer.setWantsToRoll(false);
 
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
@@ -169,7 +187,7 @@ public class SkunkDomain
 					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
 					activePlayer.setTurnScore(0);
 					activePlayer.setRoundScore(0);
-					wantsToRoll = false;
+					activePlayer.setWantsToRoll(false);
 				}
 				else
 				{
@@ -190,7 +208,7 @@ public class SkunkDomain
 					ui.println("-----------------------");
 
 					wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
-					wantsToRoll = 'y' == wantsToRollStr.toLowerCase().charAt(0);
+					activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
 				}
 
 			}

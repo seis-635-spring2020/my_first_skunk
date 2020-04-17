@@ -6,6 +6,11 @@ public class Player
 	public int roundScore;
 	public int gameScore; // for now, same as roundScore
 	public int numberChips;
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: add wantsToRoll attribute
+	// Reason: encapsulation of information
+	public boolean wantsToRoll;
 
 	public Player()
 	{
@@ -14,6 +19,8 @@ public class Player
 		this.roundScore = 0;
 		this.gameScore = 0;
 		this.numberChips = 50; // for now
+		
+		this.wantsToRoll = true;
 	}
 
 	public Player(int startingChipsPerPlayer)
@@ -61,6 +68,20 @@ public class Player
 	{
 		return this.turnScore;
 	}
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: add setter and getters for new wantsToRoll attribute
+	public void setWantsToRoll(boolean wantsToQuit)
+	{
+		this.wantsToRoll = wantsToQuit;
+	}
+
+	public boolean getWantsToRoll()
+	{
+		return this.wantsToRoll;
+	}
+	
+	
 
 	public String getName()
 	{
