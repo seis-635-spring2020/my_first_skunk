@@ -226,6 +226,18 @@ public class SkunkDomain
 			}
 		}
 
+		/*Fix: Extract Method: the original print section is moved to a 
+		 * new method called printRoundDetails
+		*/
+		printRoundDetails(winner);
+		return true;
+	}
+	
+	/*Fix: Extract Method move the print section to a method
+	 * so that the Run Method length is reduce to improve the readability
+	 * */
+	public void printRoundDetails(int winner)
+	{
 		ui.println("Round winner is " + playerNames[winner] + " with score of " + players.get(winner).getRoundScore());
 		players.get(winner).setNumberChips(players.get(winner).getNumberChips() + kitty);
 		ui.println("\nRound winner earns " + kitty + ", finishing with " + players.get(winner).getNumberChips());
@@ -242,7 +254,6 @@ public class SkunkDomain
 		}
 
 		ui.println("-----------------------");
-		return true;
 	}
 
 	public static void main(String[] args)
