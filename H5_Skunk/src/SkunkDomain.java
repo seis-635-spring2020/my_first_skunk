@@ -78,7 +78,8 @@ public class SkunkDomain
 					wantsToRoll = false;
 					break;
 				}
-				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+				/*Fix: the getDieRoll function is now moved to Dice class*/
+				else if (skunkDice.getDieRoll(1) == 1 || skunkDice.getDieRoll(2) == 1)
 				{
 					ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
 					kitty += 1;
@@ -114,9 +115,14 @@ public class SkunkDomain
 			ui.println("player name -- turn score -- round score -- chips");
 			ui.println("-----------------------");
 
+			/*Fix: Originally it was using "players.get(i).turnScore + " -- " + players.get(i).roundScore"
+			* However, this is not a good practice as this is trying to access the member of the Player class
+			* directly. This should use the get method that the player class provide to get the turnScore
+			* and roundScore, because this will not work if the member is private in players class which
+			* should be the case*/
 			for (int i = 0; i < numberOfPlayers; i++)
 			{
-				ui.println(playerNames[i] + " -- " + players.get(i).turnScore + " -- " + players.get(i).roundScore
+				ui.println(playerNames[i] + " -- " + players.get(i).getTurnScore() + " -- " + players.get(i).getRoundScore()
 						+ " -- " + players.get(i).getNumberChips());
 			}
 			ui.println("-----------------------");
@@ -162,7 +168,11 @@ public class SkunkDomain
 					wantsToRoll = false;
 
 				}
-				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+				/*Fix: Since Dice contains the roll value of Die 1 and Die 2
+				 * The Dice class should be the one having the function to return
+				 * the roll value of each individual die instead of having
+				 */
+				else if (skunkDice.getDieRoll(1) == 1 || skunkDice.getDieRoll(2) == 1)
 				{
 					ui.println("One Skunk! You lose the turn, the turn core, plus pay 1 chip to the kitty");
 					kitty += 1;
@@ -184,8 +194,9 @@ public class SkunkDomain
 
 					for (int pNumber = 0; pNumber < numberOfPlayers; pNumber++)
 					{
-						ui.println(playerNames[pNumber] + " -- " + players.get(pNumber).turnScore + " -- "
-								+ players.get(pNumber).roundScore + " -- " + players.get(pNumber).getNumberChips());
+						/*Changed turnscore to getTurnScore and roundscore to getRoundScore*/
+						ui.println(playerNames[pNumber] + " -- " + players.get(pNumber).getTurnScore() + " -- "
+								+ players.get(pNumber).getRoundScore() + " -- " + players.get(pNumber).getNumberChips());
 					}
 					ui.println("-----------------------");
 
@@ -215,6 +226,18 @@ public class SkunkDomain
 			}
 		}
 
+		/*Fix: Extract Method: the original print section is moved to a 
+		 * new method called printRoundDetails
+		*/
+		printRoundDetails(winner);
+		return true;
+	}
+	
+	/*Fix: Extract Method move the print section to a method
+	 * so that the Run Method length is reduce to improve the readability
+	 * */
+	public void printRoundDetails(int winner)
+	{
 		ui.println("Round winner is " + playerNames[winner] + " with score of " + players.get(winner).getRoundScore());
 		players.get(winner).setNumberChips(players.get(winner).getNumberChips() + kitty);
 		ui.println("\nRound winner earns " + kitty + ", finishing with " + players.get(winner).getNumberChips());
@@ -225,12 +248,12 @@ public class SkunkDomain
 
 		for (int pNumber = 0; pNumber < numberOfPlayers; pNumber++)
 		{
-			ui.println(playerNames[pNumber] + " -- " + players.get(pNumber).roundScore + " -- "
+			/*Fix: Change from .score to .getRoundScore()*/
+			ui.println(playerNames[pNumber] + " -- " + players.get(pNumber).getRoundScore() + " -- "
 					+ players.get(pNumber).getNumberChips());
 		}
 
 		ui.println("-----------------------");
-		return true;
 	}
 
 	public static void main(String[] args)

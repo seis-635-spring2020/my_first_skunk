@@ -73,6 +73,14 @@ public class Dice
 	{
 		return this.die2;
 	}
+	
+	/*Fixed: This function was moved from SkunkDomain into the Dice class
+	 * as Dice class have the information of the Die 1 and Die 2 rolls
+	 * therefore there is no need for SkunkDomain to call the getDie1().getLastRoll() */
+	public int getDieRoll(int dieNum) {
+		return dieNum == 1 ? this.getDie1().getLastRoll() :
+								this.getDie2().getLastRoll();
+	}
 
 	public void setDie1(Die d)
 	{

@@ -1,18 +1,21 @@
 
 public class Player
 {
-	public int rollScore;
-	public int turnScore;
-	public int roundScore;
-	public int gameScore; // for now, same as roundScore
-	public int numberChips;
+	/*Fix: Originally these variable is PUBLIC, however, this is not good practice since
+	 * it can be accessed by other classes if these are left public. Therefore,
+	 * these are changed to private which is Encapsulate Field Refactoring method.*/
+	private int rollScore;
+	private int turnScore;
+	private int roundScore;
+	//private int gameScore; // Fix: removed from the Player class
+	private int numberChips;
 
 	public Player()
 	{
 		this.rollScore = 0;
 		this.turnScore = 0;
 		this.roundScore = 0;
-		this.gameScore = 0;
+		//this.gameScore = 0; //Fix: removed from the Player class
 		this.numberChips = 50; // for now
 	}
 
