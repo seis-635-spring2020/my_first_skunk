@@ -29,13 +29,20 @@ public class SkunkDomain
 		this.wantsToQuit = false;
 		this.oneMoreRoll = false;
 	}
+	
+	private int getNumberOfPlayers() 
+	{
+		String numberPlayersString = skunkUI.promptReadAndReturn("How many players?");
+		this.numberOfPlayers = Integer.parseInt(numberPlayersString);
+		
+		return this.numberOfPlayers;
+	}
 
 	public boolean run()
 	{
 		ui.println("Welcome to Skunk 0.47\n");
 
-		String numberPlayersString = skunkUI.promptReadAndReturn("How many players?");
-		this.numberOfPlayers = Integer.parseInt(numberPlayersString);
+		int numberOfPlayers = getNumberOfPlayers();
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
 		{
