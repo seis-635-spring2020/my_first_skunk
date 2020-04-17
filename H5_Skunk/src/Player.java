@@ -11,6 +11,11 @@ public class Player
 	// Change: add wantsToRoll attribute
 	// Reason: encapsulation of information
 	public boolean wantsToRoll;
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: add name attribute
+	// Reason: encapsulation of information
+	public String name;
 
 	public Player()
 	{
@@ -23,10 +28,11 @@ public class Player
 		this.wantsToRoll = true;
 	}
 
-	public Player(int startingChipsPerPlayer)
+	public Player(String name, int startingChipsPerPlayer)
 	{
 		this();
 		this.numberChips = startingChipsPerPlayer;
+		this.name = name;
 	}
 
 	public static void main(String[] args)
@@ -70,7 +76,7 @@ public class Player
 	}
 	
 	// Refactoring @author Rhyan Foo Kune
-	// Change: add setter and getters for new wantsToRoll attribute
+	// Change: add setter and getter for new wantsToRoll attribute
 	public void setWantsToRoll(boolean wantsToQuit)
 	{
 		this.wantsToRoll = wantsToQuit;
@@ -81,12 +87,16 @@ public class Player
 		return this.wantsToRoll;
 	}
 	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: implement setter and getter for new name attribute
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 	
-
 	public String getName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	public void setRoundScore(int i)
