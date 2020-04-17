@@ -61,7 +61,7 @@ public class SkunkDomain
 //	This method process the last roll. Which also remove duplicates while looping wantsToRoll
 	public void processLastRoll(int number, boolean value)
 	{
-		ui.println(number + " Skunk! You lose the turn, the turn score, plus pay " + number + " chip to the kitty");
+		ui.println(number + " Skunk! You lose the turn, the turn score, plus pay " + number + " chip(s) to the kitty");
 		kitty += number;
 		activePlayer.setNumberChips(activePlayer.getNumberChips() - number);
 		activePlayer.setTurnScore(0);
