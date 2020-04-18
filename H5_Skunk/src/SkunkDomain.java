@@ -5,8 +5,12 @@ public class SkunkDomain
 {
 	// Refactoring @author Rhyan Foo Kune
 	// Change: make public attribute private
-	private SkunkUI skunkUI;
-	private UI ui;
+	private SkunkUI ui;
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: remove unnecessary attribute - SkunkUI already implements UI
+	// private UI ui;
+	
 	private int numberOfPlayers;
 
 	// Refactoring @author Rhyan Foo Kune
@@ -31,8 +35,7 @@ public class SkunkDomain
 
 	public SkunkDomain(SkunkUI ui)
 	{
-		this.skunkUI = ui;
-		this.ui = ui; // hide behind the interface UI
+		this.ui = ui;
 
 		// Refactoring @author Rhyan Foo Kune
 		// Change: move player names to player class
@@ -54,7 +57,7 @@ public class SkunkDomain
 	{
 		ui.println("Welcome to Skunk 0.47\n");
 
-		String numberPlayersString = skunkUI.promptReadAndReturn("How many players?");
+		String numberPlayersString = ui.promptReadAndReturn("How many players?");
 		this.numberOfPlayers = Integer.parseInt(numberPlayersString);
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
