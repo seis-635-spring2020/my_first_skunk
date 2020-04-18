@@ -89,40 +89,10 @@ public class SkunkDomain
 				activePlayer.setRollScore(0);
 				skunkDice.roll();
 				
-				if (skunkDice.getLastRoll() == 2)
-				{
-					ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
-					activePlayer.setTurnScore(0);
-					activePlayer.setRoundScore(0);
-					activePlayer.setWantsToRoll(false);
-					break;
-				}
-				else if (skunkDice.getLastRoll() == 3)
-				{
-					ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
-					activePlayer.setTurnScore(0);
-					activePlayer.setWantsToRoll(false);
-					break;
-				}
-				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
-				{
-					ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
-					activePlayer.setTurnScore(0);
-					activePlayer.setWantsToRoll(false);
-					break;
-
-				}
-
-				activePlayer.setRollScore(skunkDice.getLastRoll());
-				activePlayer.setTurnScore(activePlayer.getTurnScore() + skunkDice.getLastRoll());
-				ui.println(
-						"Roll of " + skunkDice.toString() + ", gives new turn score of " + activePlayer.getTurnScore());
+				// Refactoring @author Rhyan Foo Kune
+				// Change: extract method - return boolean to indicate if skunk has been rolled
+				boolean skunkRolled = this.handleDiceOutcome();
+				if (skunkRolled) break;
 
 				wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
 				activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
@@ -131,10 +101,11 @@ public class SkunkDomain
 
 			int previousRoundScore = activePlayer.getRoundScore();
 			int turnScore = activePlayer.getTurnScore();
-			ui.printEndTurnReport(activePlayer.getName(), previousRoundScore, turnScore);
 			activePlayer.setRoundScore(previousRoundScore + turnScore);
-
+			
+			ui.printEndTurnReport(activePlayer.getName(), previousRoundScore, turnScore);
 			ui.println("");
+			
 			if (activePlayer.getRoundScore() >= 100)
 				gameNotOver = false;
 
@@ -162,52 +133,23 @@ public class SkunkDomain
 			// Refactoring @author Rhyan Foo Kune
 			// Change: make wantsToRoll an attribute in player class
 			activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
-
+			
 			while (activePlayer.getWantsToRoll())
 			{
+				activePlayer.setRollScore(0);
 				skunkDice.roll();
-				ui.println("Roll is " + skunkDice.toString() + "\n");
+				
+				// Refactoring @author Rhyan Foo Kune
+				// Change: extract method - return boolean to indicate if skunk has been rolled
+				boolean skunkRolled = this.handleDiceOutcome();
+				if (skunkRolled) break;				
 
-				if (skunkDice.getLastRoll() == 2)
-				{
-					ui.println("Two Skunks! You lose the turn, the turn score, plus pay 4 chips to the kitty");
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
-					activePlayer.setTurnScore(0);
-					activePlayer.setWantsToRoll(false);
-					break;
-				}
-				else if (skunkDice.getLastRoll() == 3)
-				{
-					ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
-					activePlayer.setTurnScore(0);
-					activePlayer.setWantsToRoll(false);
+				// Refactoring @author Rhyan Foo Kune
+				// Change: extract method
+				this.showScoreboard(false);
 
-				}
-				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
-				{
-					ui.println("One Skunk! You lose the turn, the turn core, plus pay 1 chip to the kitty");
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
-					activePlayer.setTurnScore(0);
-					activePlayer.setRoundScore(0);
-					activePlayer.setWantsToRoll(false);
-				}
-				else
-				{
-					activePlayer.setTurnScore(activePlayer.getRollScore() + skunkDice.getLastRoll());
-					ui.println("Roll of " + skunkDice.toString() + ", giving new turn score of "
-							+ activePlayer.getTurnScore());
-
-					// Refactoring @author Rhyan Foo Kune
-					// Change: extract method
-					this.showScoreboard(false);
-
-					wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
-					activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
-				}
+				wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
+				activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
 
 			}
 
@@ -240,6 +182,54 @@ public class SkunkDomain
 		this.showScoreboard(true);
 		
 		return true;
+	}
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: extract method
+	// returns true if outcome is a skunk
+	public boolean handleDiceOutcome()
+	{					
+		if (skunkDice.getLastRoll() == 2)
+		{
+			ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
+			
+			kitty += 4;
+			activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
+			activePlayer.setTurnScore(0);
+			activePlayer.setRoundScore(0);
+			activePlayer.setWantsToRoll(false);
+			
+			return true;
+		}
+		else if (skunkDice.getLastRoll() == 3)
+		{
+			ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
+			
+			kitty += 2;
+			activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
+			activePlayer.setTurnScore(0);
+			activePlayer.setWantsToRoll(false);
+			
+			return true;
+		}
+		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+		{
+			ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
+			
+			kitty += 1;
+			activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
+			activePlayer.setTurnScore(0);
+			activePlayer.setWantsToRoll(false);
+			
+			return true;
+		}
+		
+		activePlayer.setRollScore(skunkDice.getLastRoll());
+		activePlayer.setTurnScore(activePlayer.getTurnScore() + skunkDice.getLastRoll());
+		
+		ui.println("Roll of " + skunkDice.toString() + ", gives new turn score of " + activePlayer.getTurnScore());
+		
+		return false;
 	}
 
 	// Refactoring @author Rhyan Foo Kune
