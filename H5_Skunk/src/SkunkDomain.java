@@ -138,6 +138,8 @@ public class SkunkDomain
 			if (activePlayer.getRoundScore() >= 100)
 				gameNotOver = false;
 
+			// Refactoring @author Rhyan Foo Kune
+			// Change: extract method
 			this.showScoreboard(false);
 
 			ui.println("Turn passes to right...");
@@ -199,6 +201,8 @@ public class SkunkDomain
 					ui.println("Roll of " + skunkDice.toString() + ", giving new turn score of "
 							+ activePlayer.getTurnScore());
 
+					// Refactoring @author Rhyan Foo Kune
+					// Change: extract method
 					this.showScoreboard(false);
 
 					wantsToRollStr = ui.promptReadAndReturn("Roll again? y or n");
@@ -231,12 +235,15 @@ public class SkunkDomain
 		players.get(winner).setNumberChips(players.get(winner).getNumberChips() + kitty);
 		ui.println("\nRound winner earns " + kitty + ", finishing with " + players.get(winner).getNumberChips());
 
+		// Refactoring @author Rhyan Foo Kune
+		// Change: extract method
 		this.showScoreboard(true);
 		
 		return true;
 	}
 
-	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: extract method
 	public void showScoreboard(boolean isFinal)
 	{
 		if (isFinal) 
