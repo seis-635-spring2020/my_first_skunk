@@ -74,6 +74,16 @@ public class DieTest
 		die.roll();
 		assertEquals("fourth value not wrapping back to first value 3", 2, die.getLastRoll());
 	}
+	@Test
+	public void test_roll_6_of_predictable_die_with_4_rolls() {
+		die.roll();
+		die.roll();
+		die.roll();
+		die.roll();
+		die.roll();
+		die.roll();
+		assertEquals("fifth value not wrapping back to first value 4", 1, die.getLastRoll());
+	}
 
 	@Test(expected = RuntimeException.class)
 	public void test_null_initial_int_array()

@@ -18,11 +18,6 @@ public class SkunkUI implements UI
 		return result;
 	}
 
-	public static void main(String[] args)
-	{
-		// TODO Auto-generated method stub
-
-	}
 
 	public void print(String toPrint)
 	{
