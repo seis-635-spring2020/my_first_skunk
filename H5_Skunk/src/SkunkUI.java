@@ -2,15 +2,6 @@ import edu.princeton.cs.introcs.*;
 
 public class SkunkUI implements UI
 {
-
-	public SkunkDomain skunkDomain;
-
-	public void setDomain(SkunkDomain skunkDomain)
-	{
-		this.skunkDomain = skunkDomain;
-
-	}
-
 	public String promptReadAndReturn(String question)
 	{
 		StdOut.print(question + " => ");

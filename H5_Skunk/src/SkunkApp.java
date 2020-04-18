@@ -9,7 +9,6 @@ public class SkunkApp
 	{
 		skunkUI = new SkunkUI();
 		skunkDomain = new SkunkDomain(skunkUI);
-		skunkUI.setDomain(skunkDomain);
 	}
 
 	/**
