@@ -26,5 +26,15 @@ public class SkunkUI implements UI
 		StdOut.println(toPrint);
 
 	}
+	
+	public void printEndTurnReport(String playerName, int previousRoundScore, int turnScore)
+	{
+		int newRoundScore = previousRoundScore + turnScore;
+		
+		println("End of turn for " + playerName);
+		println("Score for this turn is " + previousRoundScore + ", added to...");
+		println("Previous round score of " + turnScore);
+		println("Giving new round score of " + newRoundScore);
+	}
 
 }
