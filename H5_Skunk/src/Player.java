@@ -1,11 +1,23 @@
 
 public class Player
 {
-	public int rollScore;
-	public int turnScore;
-	public int roundScore;
-	public int gameScore; // for now, same as roundScore
-	public int numberChips;
+	// Refactoring @author Rhyan Foo Kune
+	// Change: make public attribute private
+	private int rollScore;
+	private int turnScore;
+	private int roundScore;
+	private int gameScore; // for now, same as roundScore
+	private int numberChips;
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: add wantsToRoll attribute
+	// Reason: encapsulation of information
+	public boolean wantsToRoll;
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: add name attribute
+	// Reason: encapsulation of information
+	public String name;
 
 	public Player()
 	{
@@ -14,12 +26,15 @@ public class Player
 		this.roundScore = 0;
 		this.gameScore = 0;
 		this.numberChips = 50; // for now
+		
+		this.wantsToRoll = true;
 	}
 
-	public Player(int startingChipsPerPlayer)
+	public Player(String name, int startingChipsPerPlayer)
 	{
 		this();
 		this.numberChips = startingChipsPerPlayer;
+		this.name = name;
 	}
 
 	public static void main(String[] args)
@@ -61,11 +76,29 @@ public class Player
 	{
 		return this.turnScore;
 	}
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: add setter and getter for new wantsToRoll attribute
+	public void setWantsToRoll(boolean wantsToQuit)
+	{
+		this.wantsToRoll = wantsToQuit;
+	}
 
+	public boolean getWantsToRoll()
+	{
+		return this.wantsToRoll;
+	}
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: implement setter and getter for new name attribute
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
 	public String getName()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 
 	public void setRoundScore(int i)
