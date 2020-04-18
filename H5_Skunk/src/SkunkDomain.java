@@ -3,19 +3,19 @@ import edu.princeton.cs.introcs.*;
 
 public class SkunkDomain
 {
-	public SkunkUI skunkUI;
-	public UI ui;
-	public int numberOfPlayers;
+	private SkunkUI skunkUI;
+	private UI ui;
+	private int numberOfPlayers;
 
 	// Refactoring @author Rhyan Foo Kune
 	// Change: move names to player class and remove playerNames attribute
 	// public String[] playerNames;
 	
-	public ArrayList<Player> players;
-	public int kitty;
+	private ArrayList<Player> players;
+	private int kitty;
 
-	public Player activePlayer;
-	public int activePlayerIndex;
+	private Player activePlayer;
+	private int activePlayerIndex;
 
 	// Refactoring @author Rhyan Foo Kune
 	// Change: remove unused attribute
@@ -25,7 +25,7 @@ public class SkunkDomain
 	// Change: remove unused attribute
 	// public boolean oneMoreRoll;
 
-	public Dice skunkDice;
+	private Dice skunkDice;
 
 	public SkunkDomain(SkunkUI ui)
 	{
@@ -141,7 +141,7 @@ public class SkunkDomain
 
 			for (int i = 0; i < numberOfPlayers; i++)
 			{
-				ui.println(players.get(i).getName() + " -- " + players.get(i).turnScore + " -- " + players.get(i).roundScore
+				ui.println(players.get(i).getName() + " -- " + players.get(i).getTurnScore() + " -- " + players.get(i).getRoundScore()
 						+ " -- " + players.get(i).getNumberChips());
 			}
 			ui.println("-----------------------");
@@ -212,8 +212,8 @@ public class SkunkDomain
 
 					for (int pNumber = 0; pNumber < numberOfPlayers; pNumber++)
 					{
-						ui.println(players.get(pNumber).getName() + " -- " + players.get(pNumber).turnScore + " -- "
-								+ players.get(pNumber).roundScore + " -- " + players.get(pNumber).getNumberChips());
+						ui.println(players.get(pNumber).getName() + " -- " + players.get(pNumber).getTurnScore() + " -- "
+								+ players.get(pNumber).getRoundScore() + " -- " + players.get(pNumber).getNumberChips());
 					}
 					ui.println("-----------------------");
 
@@ -253,7 +253,7 @@ public class SkunkDomain
 
 		for (int pNumber = 0; pNumber < numberOfPlayers; pNumber++)
 		{
-			ui.println(players.get(pNumber).getName() + " -- " + players.get(pNumber).roundScore + " -- "
+			ui.println(players.get(pNumber).getName() + " -- " + players.get(pNumber).getRoundScore() + " -- "
 					+ players.get(pNumber).getNumberChips());
 		}
 

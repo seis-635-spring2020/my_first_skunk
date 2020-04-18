@@ -1,18 +1,13 @@
 public class SkunkApp
 {
-	public SkunkUI skunkUI;
-	public SkunkDomain skunkDomain;
-	public int numberOfPlayers;
-	public String[] playerNames;
+	private SkunkUI skunkUI;
+	private SkunkDomain skunkDomain;
 
 	public SkunkApp()
 	{
 		skunkUI = new SkunkUI();
 		skunkDomain = new SkunkDomain(skunkUI);
 		skunkUI.setDomain(skunkDomain);
-		this.numberOfPlayers = 0;
-		this.playerNames = new String[20];
-
 	}
 
 	/**

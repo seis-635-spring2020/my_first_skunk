@@ -1,11 +1,11 @@
 
 public class Player
 {
-	public int rollScore;
-	public int turnScore;
-	public int roundScore;
-	public int gameScore; // for now, same as roundScore
-	public int numberChips;
+	private int rollScore;
+	private int turnScore;
+	private int roundScore;
+	private int gameScore; // for now, same as roundScore
+	private int numberChips;
 	
 	// Refactoring @author Rhyan Foo Kune
 	// Change: add wantsToRoll attribute
