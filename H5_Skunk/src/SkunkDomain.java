@@ -184,51 +184,51 @@ public class SkunkDomain
 	// Change: extract method
 	// returns true if outcome is a skunk
 	public boolean handleDiceOutcome()
-	{					
+	{
+		boolean skunkRolled = false;
+		
+		// Refactoring @author Rhyan Foo Kune
+		// Change: set temp variable
+		// Reason: avoid error in future development - only one place to update the penality
+		int penality = 0;
+		
 		if (skunkDice.getLastRoll() == 2)
 		{
-			// Refactoring @author Rhyan Foo Kune
-			// Change: set temp variable
-			// Reason: avoid error in future development - only one place to update the penality
-			int penality = 4;
-			ui.println("Two Skunks! You lose the turn, the round score, plus pay " + penality + " chips to the kitty");
+			skunkRolled = true;
+			penality = 4;
 			
-			kitty += penality;
-			activePlayer.setNumberChips(activePlayer.getNumberChips() - penality);
-			activePlayer.setTurnScore(0);
 			activePlayer.setRoundScore(0);
-			activePlayer.setWantsToRoll(false);
 			
-			return true;
+			ui.println(
+				"Two Skunks! You lose the turn, the round score, plus pay " + penality + " chips to the kitty");
 		}
 		else if (skunkDice.getLastRoll() == 3)
 		{
-			// Refactoring @author Rhyan Foo Kune
-			// Change: set temp variable
-			// Reason: avoid error in future development - only one place to update the penality
-			int penality = 2;
-			ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay " + penality + " chips to the kitty");
+			skunkRolled = true;
+			penality = 2;
 			
-			kitty += penality;
-			activePlayer.setNumberChips(activePlayer.getNumberChips() - penality);
-			activePlayer.setTurnScore(0);
-			activePlayer.setWantsToRoll(false);
-			
-			return true;
+			ui.println(
+				"Skunks and Deuce! You lose the turn, the turn score, plus pay " + penality + " chips to the kitty");
 		}
 		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 		{
-			// Refactoring @author Rhyan Foo Kune
-			// Change: set temp variable
-			// Reason: avoid error in future development - only one place to update the penality
-			int penality = 1;
-			ui.println("One Skunk! You lose the turn, the turn score, plus pay " + penality + " chip to the kitty");
+			skunkRolled = true;
+			penality = 1;
 			
+			ui.println(
+				"One Skunk! You lose the turn, the turn score, plus pay " + penality + " chip to the kitty");
+		}
+		
+		
+		// Refactoring @author Rhyan Foo Kune
+		// Change: combine duplicate code
+		if (skunkRolled) {
 			kitty += penality;
 			activePlayer.setNumberChips(activePlayer.getNumberChips() - penality);
 			activePlayer.setTurnScore(0);
 			activePlayer.setWantsToRoll(false);
 			
+			// return and do not add roll score to player's score
 			return true;
 		}
 		
@@ -239,6 +239,7 @@ public class SkunkDomain
 		
 		return false;
 	}
+	
 
 	// Refactoring @author Rhyan Foo Kune
 	// Change: extract method
