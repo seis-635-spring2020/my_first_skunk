@@ -155,24 +155,23 @@ public class SkunkDomain
 
 			}
 		}
-
-		int winner = 0;
-		int winnerScore = 0;
-
-		for (int player = 0; player < numberOfPlayers; player++)
+		
+		for (int pNumber = 0; pNumber < numberOfPlayers; pNumber++)
 		{
-			Player nextPlayer = players.get(player);
-			ui.println("Final round score for " + nextPlayer.getName() + " is " + nextPlayer.getRoundScore() + ".");
-			if (nextPlayer.getRoundScore() > winnerScore)
-			{
-				winner = player;
-				winnerScore = nextPlayer.getRoundScore();
-			}
+			ui.println("Final round score for " + players.get(pNumber).getName() + " is " + players.get(pNumber).getRoundScore() + ".");
 		}
 
-		ui.println("Round winner is " + players.get(winner).getName() + " with score of " + players.get(winner).getRoundScore());
-		players.get(winner).setNumberChips(players.get(winner).getNumberChips() + kitty);
-		ui.println("\nRound winner earns " + kitty + ", finishing with " + players.get(winner).getNumberChips());
+		
+		// Refactoring @author Rhyan Foo Kune
+		// Change: extract method
+		Player winner = this.getWinner();
+		
+		ui.println("Round winner is " + winner.getName() + " with score of " + winner.getRoundScore());
+		
+		winner.setNumberChips(winner.getNumberChips() + kitty);
+		ui.println("\nRound winner earns " + kitty + ", finishing with " + winner.getNumberChips());
+		
+		kitty = 0;
 
 		// Refactoring @author Rhyan Foo Kune
 		// Change: extract method
@@ -188,10 +187,14 @@ public class SkunkDomain
 	{					
 		if (skunkDice.getLastRoll() == 2)
 		{
-			ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
+			// Refactoring @author Rhyan Foo Kune
+			// Change: set temp variable
+			// Reason: avoid error in future development - only one place to update the penality
+			int penality = 4;
+			ui.println("Two Skunks! You lose the turn, the round score, plus pay " + penality + " chips to the kitty");
 			
-			kitty += 4;
-			activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
+			kitty += penality;
+			activePlayer.setNumberChips(activePlayer.getNumberChips() - penality);
 			activePlayer.setTurnScore(0);
 			activePlayer.setRoundScore(0);
 			activePlayer.setWantsToRoll(false);
@@ -200,10 +203,14 @@ public class SkunkDomain
 		}
 		else if (skunkDice.getLastRoll() == 3)
 		{
-			ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
+			// Refactoring @author Rhyan Foo Kune
+			// Change: set temp variable
+			// Reason: avoid error in future development - only one place to update the penality
+			int penality = 2;
+			ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay " + penality + " chips to the kitty");
 			
-			kitty += 2;
-			activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
+			kitty += penality;
+			activePlayer.setNumberChips(activePlayer.getNumberChips() - penality);
 			activePlayer.setTurnScore(0);
 			activePlayer.setWantsToRoll(false);
 			
@@ -211,10 +218,14 @@ public class SkunkDomain
 		}
 		else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 		{
-			ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
+			// Refactoring @author Rhyan Foo Kune
+			// Change: set temp variable
+			// Reason: avoid error in future development - only one place to update the penality
+			int penality = 1;
+			ui.println("One Skunk! You lose the turn, the turn score, plus pay " + penality + " chip to the kitty");
 			
-			kitty += 1;
-			activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
+			kitty += penality;
+			activePlayer.setNumberChips(activePlayer.getNumberChips() - penality);
 			activePlayer.setTurnScore(0);
 			activePlayer.setWantsToRoll(false);
 			
@@ -260,6 +271,27 @@ public class SkunkDomain
 		}
 		
 		ui.println("-----------------------");
+	}
+	
+	
+	// Refactoring @author Rhyan Foo Kune
+	// Change: extract method
+	public Player getWinner()
+	{
+		Player winner = null;
+		int maxScore = 0;
+		
+		for (int player = 0; player < numberOfPlayers; player++)
+		{
+			Player nextPlayer = players.get(player);
+			if (nextPlayer.getRoundScore() > maxScore)
+			{
+				winner = nextPlayer;
+				maxScore = nextPlayer.getRoundScore();
+			}
+		}
+		
+		return winner;
 	}
 
 }
