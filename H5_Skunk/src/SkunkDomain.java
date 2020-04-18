@@ -103,6 +103,8 @@ public class SkunkDomain
 			int turnScore = activePlayer.getTurnScore();
 			activePlayer.setRoundScore(previousRoundScore + turnScore);
 			
+			// Refactoring @author Rhyan Foo Kune
+			// Change: add new printEndTurnReport method in SkunkUI
 			ui.printEndTurnReport(activePlayer.getName(), previousRoundScore, turnScore);
 			ui.println("");
 			
@@ -152,11 +154,6 @@ public class SkunkDomain
 				activePlayer.setWantsToRoll('y' == wantsToRollStr.toLowerCase().charAt(0));
 
 			}
-
-			activePlayer.setTurnScore(activePlayer.getRollScore() + skunkDice.getLastRoll());
-			ui.println("Last roll of " + skunkDice.toString() + ", giving final round score of "
-					+ activePlayer.getRollScore());
-
 		}
 
 		int winner = 0;
