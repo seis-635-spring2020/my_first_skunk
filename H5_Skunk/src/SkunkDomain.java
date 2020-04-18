@@ -3,6 +3,8 @@ import edu.princeton.cs.introcs.*;
 
 public class SkunkDomain
 {
+	// Refactoring @author Rhyan Foo Kune
+	// Change: make public attribute private
 	private SkunkUI skunkUI;
 	private UI ui;
 	private int numberOfPlayers;

@@ -1,6 +1,8 @@
 
 public class Player
 {
+	// Refactoring @author Rhyan Foo Kune
+	// Change: make public attribute private
 	private int rollScore;
 	private int turnScore;
 	private int roundScore;

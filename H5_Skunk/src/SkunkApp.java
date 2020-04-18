@@ -1,5 +1,7 @@
 public class SkunkApp
 {
+	// Refactoring @author Rhyan Foo Kune
+	// Change: make public attribute private
 	private SkunkUI skunkUI;
 	private SkunkDomain skunkDomain;
 
