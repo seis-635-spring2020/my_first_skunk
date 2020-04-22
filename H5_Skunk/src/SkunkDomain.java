@@ -29,13 +29,26 @@ public class SkunkDomain
 		this.wantsToQuit = false;
 		this.oneMoreRoll = false;
 	}
-
-	public boolean run()
+	
+//	everything is packed inside the run method. This practice makes the code hard to read and understand
+//	and even very hard to debug. 
+//	The run method have way to many tasks, does many things and has so many responsibilities. 
+//	To improve its legibility and structure; I'm going to create methods that are easy to read, 
+//	well structure and perform one task. 
+	
+//	this method will get the number of players and pass them to other method when needed.
+	public int getNumberOfPlayers() 
 	{
-		ui.println("Welcome to Skunk 0.47\n");
-
 		String numberPlayersString = skunkUI.promptReadAndReturn("How many players?");
 		this.numberOfPlayers = Integer.parseInt(numberPlayersString);
+		
+		return this.numberOfPlayers;
+	}
+	
+//	this method getPlayersNames and will pass them to the run method
+	public void getPlayersNames()
+	{
+		int numberOfPlayers = getNumberOfPlayers();
 
 		for (int playerNumber = 0; playerNumber < numberOfPlayers; playerNumber++)
 		{
@@ -43,6 +56,30 @@ public class SkunkDomain
 			playerNames[playerNumber] = StdIn.readLine();
 			this.players.add(new Player(50));
 		}
+	}
+	
+//	This method process the last roll. Which also remove duplicates while looping wantsToRoll
+	public void processLastRoll(int number, boolean value)
+	{
+		ui.println(number + " Skunk! You lose the turn, the turn score, plus pay " + number + " chip(s) to the kitty");
+		kitty += number;
+		activePlayer.setNumberChips(activePlayer.getNumberChips() - number);
+		activePlayer.setTurnScore(0);
+		
+		if (number == 4)
+		{
+			activePlayer.setRoundScore(0);
+		}
+		value = false;
+	}
+
+	public boolean run()
+	{
+		ui.println("Welcome to Skunk 0.47\n");
+		
+		//	getting players info before the game begin
+		getPlayersNames();
+		
 		activePlayerIndex = 0;
 		activePlayer = players.get(activePlayerIndex);
 
@@ -61,32 +98,18 @@ public class SkunkDomain
 				skunkDice.roll();
 				if (skunkDice.getLastRoll() == 2)
 				{
-					ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
-					activePlayer.setTurnScore(0);
-					activePlayer.setRoundScore(0);
-					wantsToRoll = false;
+					this.processLastRoll(4, wantsToRoll);
 					break;
 				}
 				else if (skunkDice.getLastRoll() == 3)
 				{
-					ui.println("Skunks and Deuce! You lose the turn, the turn score, plus pay 2 chips to the kitty");
-					kitty += 2;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 2);
-					activePlayer.setTurnScore(0);
-					wantsToRoll = false;
+					this.processLastRoll(2, wantsToRoll);
 					break;
 				}
 				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
 				{
-					ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
-					kitty += 1;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 1);
-					activePlayer.setTurnScore(0);
-					wantsToRoll = false;
+					this.processLastRoll(1, wantsToRoll);
 					break;
-
 				}
 
 				activePlayer.setRollScore(skunkDice.getLastRoll());
