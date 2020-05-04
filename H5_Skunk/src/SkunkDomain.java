@@ -78,7 +78,7 @@ public class SkunkDomain
 					wantsToRoll = false;
 					break;
 				}
-				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+				else if (skunkDice.getDie1LastRoll() == 1 || skunkDice.getDie2LastRoll() == 1)
 				{
 					ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
 					kitty += 1;
