@@ -68,10 +68,20 @@ public class Dice
 		// TODO Auto-generated method stub
 		return this.die1;
 	}
+	
+	public int getDie1LastRoll()
+	{
+		return this.die1.getLastRoll();
+	}
 
 	public Die getDie2()
 	{
 		return this.die2;
+	}
+	
+	public int getDie2LastRoll()
+	{
+		return this.die2.getLastRoll();
 	}
 
 	public void setDie1(Die d)

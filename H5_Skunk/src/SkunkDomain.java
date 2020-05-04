@@ -29,6 +29,16 @@ public class SkunkDomain
 		this.wantsToQuit = false;
 		this.oneMoreRoll = false;
 	}
+	
+	public void twoSkunks()
+	{
+		ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
+		kitty += 4;
+		activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
+		activePlayer.setTurnScore(0);
+		activePlayer.setRoundScore(0);
+		
+	}
 
 	public boolean run()
 	{
@@ -48,6 +58,8 @@ public class SkunkDomain
 
 		ui.println("Starting game...\n");
 		boolean gameNotOver = true;
+		
+		
 
 		while (gameNotOver)
 		{
@@ -61,11 +73,7 @@ public class SkunkDomain
 				skunkDice.roll();
 				if (skunkDice.getLastRoll() == 2)
 				{
-					ui.println("Two Skunks! You lose the turn, the round score, plus pay 4 chips to the kitty");
-					kitty += 4;
-					activePlayer.setNumberChips(activePlayer.getNumberChips() - 4);
-					activePlayer.setTurnScore(0);
-					activePlayer.setRoundScore(0);
+					twoSkunks();
 					wantsToRoll = false;
 					break;
 				}
@@ -78,7 +86,7 @@ public class SkunkDomain
 					wantsToRoll = false;
 					break;
 				}
-				else if (skunkDice.getDie1().getLastRoll() == 1 || skunkDice.getDie2().getLastRoll() == 1)
+				else if (skunkDice.getDie1LastRoll() == 1 || skunkDice.getDie2LastRoll() == 1)
 				{
 					ui.println("One Skunk! You lose the turn, the turn score, plus pay 1 chip to the kitty");
 					kitty += 1;
