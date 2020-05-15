@@ -62,29 +62,33 @@ public class Dice
 		return "Dice with last roll: " + getLastRoll() + " => " + die1.getLastRoll() + " + " + die2.getLastRoll();
 
 	}
-
-	public Die getDie1()
+	
+	
+	// Deleted the set die methods and tied it to last roll
+	public int getLastDie1()
 	{
-		// TODO Auto-generated method stub
-		return this.die1;
+		return this.die1.getLastRoll();
+	}
+	public int getLastDie2()
+	{
+		return this.die2.getLastRoll();
 	}
 
-	public Die getDie2()
-	{
-		return this.die2;
-	}
-
-	public void setDie1(Die d)
-	{
-		this.die1 = d;
-	}
-
-	public void setDie2(Die d)
-	{
-		this.die2 = d;
-	}
-
+	
 	public static final int NUM_TRIALS = 360;
+	
+	// Added method to simulate die roll and combine results
+	public static int[] rollingDice() {
+		Dice diceRoll = new Dice();
+
+		int[] returnDiceResults = new int[3];
+
+		returnDiceResults[0] = diceRoll.getLastDie1();
+		returnDiceResults[1] = diceRoll.getLastDie2();
+		returnDiceResults[2] = diceRoll.getLastRoll();
+		
+		return returnDiceResults;
+	}
 
 	public static void main(String[] args)
 	{
